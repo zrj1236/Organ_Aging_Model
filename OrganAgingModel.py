@@ -46,7 +46,7 @@ def ENTrain(X,Y):
     
 if __name__ == '__main__':
     
-    #Load the proteomics data, where each row represents a sample and each column represents an organ-enriched protein(including Sex and Age). 
+    #Load the full data for a specific organ, where each row represents a sample and each column represents an organ-enriched protein(including Sex and Age). 
     full_data = pd.read_csv('organ_data.csv',header=0,sep='\t',index_col=0)
     y = full_data['Age']
     X = full_data.drop('Age',axis=1)
@@ -88,6 +88,7 @@ if __name__ == '__main__':
 
     # Concatenate the two DataFrames vertically (stack them)
     combined_results = pd.concat([train_results, test_results])
+    combined_results.to_csv('organ_aging_prediction_result',header=True,index=True,sep='\t')
     
     
     
