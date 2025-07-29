@@ -67,6 +67,28 @@ if __name__ == '__main__':
     y_pred_test_xgb =  xgb_model.predict(X_test)
     y_pred_test_rf =  rf_model.predict(X_test)
     y_pred_test_en =  en_model.predict(X_test)
+
+    # Creating DataFrame for training results
+    train_results = pd.DataFrame({
+    'XGB_pred': y_pred_train_xgb,
+    'RF_pred': y_pred_train_rf,
+    'EN_pred': y_pred_train_en
+    }, index=X_train.index)  # Using the same index as X_train to maintain consistency
+
+    # Creating DataFrame for test results
+    test_results = pd.DataFrame({
+    'XGB_pred': y_pred_test_xgb,
+    'RF_pred': y_pred_test_rf,
+    'EN_pred': y_pred_test_en
+    }, index=X_test.index)  # Using the same index as X_test to maintain consistency
+
+    # Add a new column to indicate whether the data is from the training set or the test set
+    train_results['Dataset'] = 'Training'
+    test_results['Dataset'] = 'Test'
+
+    # Concatenate the two DataFrames vertically (stack them)
+    combined_results = pd.concat([train_results, test_results])
+    
     
     
     
