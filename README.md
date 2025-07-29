@@ -11,9 +11,7 @@ Delta Age Calculation: To address age bias in the predictions, a post-prediction
 Project Setup
 To get started, clone this repository to your local machine:
 
-bash
-复制
-编辑
+
 git clone https://github.com/your-username/aging-model.git
 cd aging-model
 Required Libraries
@@ -31,14 +29,11 @@ statsmodels: For LOWESS regression.
 
 To install the required libraries, you can create a virtual environment and install the dependencies:
 
-bash
-复制
-编辑
+
 pip install -r requirements.txt
 Where the requirements.txt file should contain:
 
-复制
-编辑
+
 scikit-learn
 xgboost
 pandas
@@ -91,9 +86,6 @@ After cross-validation, the best models were selected based on their performance
 Example Usage
 To train the models and optimize parameters, run the following code:
 
-bash
-复制
-编辑
 python model_training.py
 This will train the models using the training data and optimize the hyperparameters. It will also evaluate the models on both the training and test datasets.
 
@@ -106,8 +98,5 @@ The delta age is calculated as the residuals from the LOWESS regression model. T
 Example Usage
 To calculate the delta age for predicted values:
 
-bash
-复制
-编辑
 python delta_age.py
 This will calculate the delta age (corrected PAD) by applying the LOWESS regression on the predicted and chronological ages.
