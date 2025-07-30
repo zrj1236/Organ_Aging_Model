@@ -74,10 +74,10 @@ if __name__ == '__main__':
     y_pred_test_rf =  rf_model.predict(X_test)
     y_pred_test_en =  en_model.predict(X_test)
 
-	# Evaluate XGBoost model performance on training and test sets
-	r_train_xgb = evaluate_model(y_train, y_pred_train_xgb)
-	r_test_xgb = evaluate_model(y_test, y_pred_test_xgb)
-	
+    # Evaluate XGBoost model performance on training and test sets
+    r_train_xgb = evaluate_model(y_train, y_pred_train_xgb)
+    r_test_xgb = evaluate_model(y_test, y_pred_test_xgb)
+    
     # Evaluate Random Forest model performance on training and test sets
     r_train_rf = evaluate_model(y_train, y_pred_train_rf)
     r_test_rf = evaluate_model(y_test, y_pred_test_rf)
@@ -86,20 +86,20 @@ if __name__ == '__main__':
     r_train_en = evaluate_model(y_train, y_pred_train_en)
     r_test_en = evaluate_model(y_test, y_pred_test_en)
 
-	# Print out the evaluation results for all models
-	print("XGBoost Model Evaluation:")
-	print(f"Training R: {r_train_xgb:.4f}")
-	print(f"Test R: {r_test_xgb:.4f}")
-	print()
+    # Print out the evaluation results for all models
+    print("XGBoost Model Evaluation:")
+    print(f"Training R: {r_train_xgb:.4f}")
+    print(f"Test R: {r_test_xgb:.4f}")
+    print()
 
-	print("Random Forest Model Evaluation:")
-	print(f"Training R: {r_train_rf:.4f}")
-	print(f"Test R: {r_test_rf:.4f}")
-	print()
+    print("Random Forest Model Evaluation:")
+    print(f"Training R: {r_train_rf:.4f}")
+    print(f"Test R: {r_test_rf:.4f}")
+    print()
 
-	print("Elastic Net Model Evaluation:")
-	print(f"Training R: {r_train_en:.4f}")
-	print(f"Test R: {r_test_en:.4f}")
+    print("Elastic Net Model Evaluation:")
+    print(f"Training R: {r_train_en:.4f}")
+    print(f"Test R: {r_test_en:.4f}")
 
     # Creating DataFrame for training results
     train_results = pd.DataFrame({
@@ -122,15 +122,3 @@ if __name__ == '__main__':
     # Concatenate the two DataFrames vertically (stack them)
     combined_results = pd.concat([train_results, test_results])
     combined_results.to_csv('organ_aging_prediction_result',header=True,index=True,sep='\t')
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
