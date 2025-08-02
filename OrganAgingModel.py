@@ -123,4 +123,20 @@ if __name__ == '__main__':
     combined_results = pd.concat([train_results, test_results])
     combined_results.to_csv('organ_aging_prediction_result',header=True,index=True,sep='\t')
 
+    #Extract proteins weights
+    protein_weights_xbg = xgb_model.feature_importances_
+    protein_weights_rf = rf_model.feature_importances_
+    protein_weights_en = en_model.coef_
+        
+    protein_names = X_train.columns
+        
+    protein_weights_df = pd.DataFrame({
+        'Feature': feature_names, 
+        'XGBoost': protein_weights_xgb, 
+        'RandomForest': protein_weights_rf, 
+        'ElasticNet': protein_weights_en
+        })
+       
+    protein_weights_df.to_csv('model_protein_weights_'+str(k),header=True,index=True,sep='\t')
+
 
