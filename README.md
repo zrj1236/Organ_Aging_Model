@@ -6,9 +6,14 @@ The goal of this project is to predict organ-specific aging from proteomic data 
 
 ## Requirements
 Python = 3.13.5
+
 xgboost = 3.0.3
+
 scikit-learn = 1.7.1
+
 numpy  = 2.3.2
+
 scipy  =  1.16.1
+
 pandas  = 2.3.1
 
