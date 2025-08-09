@@ -19,4 +19,4 @@ OrganAgingModelNestedCV.py：Developing model using nested cross-validation<br>
 protein_data: Simulated proteomics data containing 1,000 samples and 100 proteins<br>
 ages: Age of the samples<br>
 sex: Sex of the samples<br>
-test_organ_enriched_genes: Simulated organ-specific proteins (10)<br>
+test_organ_enriched_genes: Simulated organ-specific proteins (n=10)<br>
