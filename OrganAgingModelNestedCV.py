@@ -61,10 +61,10 @@ if __name__ == '__main__':
 	organ_enriched_genes = np.loadtxt('../data/test_organ_enriched_genes',dtype=str)
 	organ_data = full_data[organ_enriched_genes]
 
-	sex = pd.read_csv('sex',header=0,sep='\t',index_col=0)
+	sex = pd.read_csv('../data/sex',header=0,sep='\t',index_col=0)
 	organ_data = organ_data.join(sex)
 
-	age = pd.read_csv('ages',header=0,sep='\t',index_col=0)
+	age = pd.read_csv('../data/ages',header=0,sep='\t',index_col=0)
 	organ_data = organ_data.join(age)
 		  
 	y = organ_data['age']
@@ -167,4 +167,5 @@ if __name__ == '__main__':
 		with open("en_model_params_"+str(k), "w") as file:
 			for key, value in en_params.items():
 				file.write(f"{key}: {value}\n")
+
 
