@@ -12,7 +12,7 @@ os.environ["OMP_NUM_THREADS"] = "64"
 os.environ["MKL_NUM_THREADS"] = "64"
 
 def XGboostTrain(X,Y):
-    reg = xgb.XGBRegressor(n_jobs=256)
+    reg = xgb.XGBRegressor(n_jobs=64)
     param_grid = {'eta':[0.01,0.1,0.3],'n_estimators':[100,200,300,400,500]}
     grid_search = GridSearchCV(reg, param_grid, cv=5,scoring='r2')
     gs = grid_search.fit(X,Y)
@@ -25,7 +25,7 @@ def XGboostTrain(X,Y):
     return xgb_model,params
 
 def RFTrain(X,Y):
-    reg = RandomForestRegressor(n_jobs=256)
+    reg = RandomForestRegressor(n_jobs=64)
     param_grid = {'n_estimators':[100,200,300,400,500]}
     grid_search = GridSearchCV(reg, param_grid, cv=5,scoring='r2')
     gs=grid_search.fit(X,Y)
@@ -57,12 +57,8 @@ def evaluate_model(y_true, y_pred):
     
 if __name__ == '__main__':
     
-	fill_data = pd.read_csv('../data/protein_data',header=0,index_col=0,sep=' ')
-
-	#Organ = 'Test'
+	full_data = pd.read_csv('../data/protein_data',header=0,index_col=0,sep='\t')
 	organ_enriched_genes = np.loadtxt('../data/test_organ_enriched_genes',dtype=str)
-
-	#original_data = pd.read_csv('30900.protein.npx.sample01.imputed.Conventional',header=0,index_col=0,sep=' ')
 	organ_data = full_data[organ_enriched_genes]
 
 	sex = pd.read_csv('sex',header=0,sep='\t',index_col=0)
@@ -71,14 +67,11 @@ if __name__ == '__main__':
 	age = pd.read_csv('ages',header=0,sep='\t',index_col=0)
 	organ_data = organ_data.join(age)
 		  
-	print(full_data)
-	#Load the full data for a specific organ, where each row represents a sample and each column represents an organ-enriched protein(including Sex and Age). 
-	#full_data = pd.read_csv('organ_data.csv',header=0,sep='\t',index_col=0)
 	y = organ_data['age']
 	X = organ_data.drop('age',axis=1)
 		
 	n_nested = 5
-	kf = KFold(n_splits=5, shuffle=True, random_state=42)
+	kf = KFold(n_splits=n_nested, shuffle=True, random_state=42)
 		
 	for k, (train_index, test_index) in enumerate(kf.split(X), 1):
 		X_train, X_test = X.iloc[train_index], X.iloc[test_index]
@@ -174,3 +167,4 @@ if __name__ == '__main__':
 		with open("en_model_params_"+str(k), "w") as file:
 			for key, value in en_params.items():
 				file.write(f"{key}: {value}\n")
+
