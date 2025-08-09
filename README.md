@@ -6,17 +6,17 @@ The goal of this project is to predict organ-specific aging from proteomic data 
 
 ## Requirements
 Python = 3.13.5<br>
-xgboost = 3.0.3
-
-scikit-learn = 1.7.1
-
-numpy  = 2.3.2
-
-scipy  =  1.16.1
-
-pandas  = 2.3.1
+xgboost = 3.0.3<br>
+scikit-learn = 1.7.1<br>
+numpy  = 2.3.2<br>
+scipy  =  1.16.1<br>
+pandas  = 2.3.1<br>
 
 ## Script and Data
-**Script**：
-OrganAgingModelNestedCV.py：Developing model using nested cross-validation
-**Data**：
+**Script**：<br>
+OrganAgingModelNestedCV.py：Developing model using nested cross-validation<br>
+**Data**：<br>
+protein_data: Simulated proteomics data containing 1,000 samples and 100 proteins<br>
+ages: Age of the samples<br>
+sex: Sex of the samples<br>
+test_organ_enriched_genes: Simulated organ-specific proteins (10)<br>
