@@ -58,11 +58,7 @@ def evaluate_model(y_true, y_pred):
 if __name__ == '__main__':
     
 	full_data = pd.read_csv('../data/protein_data',header=0,index_col=0,sep=' ')
-
-	#Organ = 'Test'
 	organ_enriched_genes = np.loadtxt('../data/test_organ_enriched_genes',dtype=str)
-
-	#original_data = pd.read_csv('30900.protein.npx.sample01.imputed.Conventional',header=0,index_col=0,sep=' ')
 	organ_data = full_data[organ_enriched_genes]
 
 	sex = pd.read_csv('sex',header=0,sep='\t',index_col=0)
@@ -70,8 +66,7 @@ if __name__ == '__main__':
 
 	age = pd.read_csv('ages',header=0,sep='\t',index_col=0)
 	organ_data = organ_data.join(age)
-		  
-	print(full_data)
+
 	#Load the full data for a specific organ, where each row represents a sample and each column represents an organ-enriched protein(including Sex and Age). 
 	#full_data = pd.read_csv('organ_data.csv',header=0,sep='\t',index_col=0)
 	y = organ_data['age']
