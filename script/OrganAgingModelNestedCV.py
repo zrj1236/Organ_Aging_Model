@@ -12,7 +12,7 @@ os.environ["OMP_NUM_THREADS"] = "64"
 os.environ["MKL_NUM_THREADS"] = "64"
 
 def XGboostTrain(X,Y):
-    reg = xgb.XGBRegressor(n_jobs=256)
+    reg = xgb.XGBRegressor(n_jobs=64)
     param_grid = {'eta':[0.01,0.1,0.3],'n_estimators':[100,200,300,400,500]}
     grid_search = GridSearchCV(reg, param_grid, cv=5,scoring='r2')
     gs = grid_search.fit(X,Y)
@@ -25,7 +25,7 @@ def XGboostTrain(X,Y):
     return xgb_model,params
 
 def RFTrain(X,Y):
-    reg = RandomForestRegressor(n_jobs=256)
+    reg = RandomForestRegressor(n_jobs=64)
     param_grid = {'n_estimators':[100,200,300,400,500]}
     grid_search = GridSearchCV(reg, param_grid, cv=5,scoring='r2')
     gs=grid_search.fit(X,Y)
