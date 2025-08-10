@@ -67,8 +67,6 @@ if __name__ == '__main__':
 	age = pd.read_csv('ages',header=0,sep='\t',index_col=0)
 	organ_data = organ_data.join(age)
 
-	#Load the full data for a specific organ, where each row represents a sample and each column represents an organ-enriched protein(including Sex and Age). 
-	#full_data = pd.read_csv('organ_data.csv',header=0,sep='\t',index_col=0)
 	y = organ_data['age']
 	X = organ_data.drop('age',axis=1)
 		
