@@ -6,68 +6,75 @@ from scipy.stats import pearsonr
 from sklearn.model_selection import GridSearchCV
 import pandas as pd
 from sklearn.model_selection import KFold
-import multiprocessing
-import os
 import argparse
 
 def XGboostTrain(X,Y):
-    reg = xgb.XGBRegressor(n_jobs=64)
-    param_grid = {'eta':[0.01,0.1,0.3],'n_estimators':[100,200,300,400,500]}
-    grid_search = GridSearchCV(reg, param_grid, cv=5,scoring='r2')
-    gs = grid_search.fit(X,Y)
-    
-    params = gs.best_params_
-    
-    xgb_model = xgb.XGBRegressor(eta=params['eta'],n_estimators=params['n_estimators'])
-    xgb_model.fit(X,Y)
-    
-    return xgb_model,params
+	reg = xgb.XGBRegressor(n_jobs=64)
+	param_grid = {'eta':[0.01,0.1,0.3],'n_estimators':[100,200,300,400,500]}
+	grid_search = GridSearchCV(reg, param_grid, cv=5,scoring='r2')
+	gs = grid_search.fit(X,Y)
+	
+	params = gs.best_params_
+	
+	xgb_model = xgb.XGBRegressor(eta=params['eta'],n_estimators=params['n_estimators'])
+	xgb_model.fit(X,Y)
+	
+	return xgb_model,params
 
 def RFTrain(X,Y):
-    reg = RandomForestRegressor(n_jobs=64)
-    param_grid = {'n_estimators':[100,200,300,400,500]}
-    grid_search = GridSearchCV(reg, param_grid, cv=5,scoring='r2')
-    gs=grid_search.fit(X,Y)
-    
-    params = gs.best_params_
+	reg = RandomForestRegressor(n_jobs=64)
+	param_grid = {'n_estimators':[100,200,300,400,500]}
+	grid_search = GridSearchCV(reg, param_grid, cv=5,scoring='r2')
+	gs=grid_search.fit(X,Y)
+	
+	params = gs.best_params_
 
-    rf_model = RandomForestRegressor(n_estimators=params['n_estimators'])
-    rf_model.fit(X,Y)
+	rf_model = RandomForestRegressor(n_estimators=params['n_estimators'])
+	rf_model.fit(X,Y)
 
-    return rf_model,params
+	return rf_model,params
    
 def ENTrain(X,Y):
-    reg = ElasticNet(selection='random')
-    param_grid = {'alpha':np.array(range(1,100,1))/100,'l1_ratio':np.array(range(1,100,1))/100}
-    grid_search = GridSearchCV(reg, param_grid, cv=5,scoring='r2')
-    gs=grid_search.fit(X,Y)
-    
-    params = gs.best_params_
-    en_model = ElasticNet(alpha=params['alpha'],l1_ratio=params['l1_ratio'])
-    
-    en_model.fit(X,Y)
-    
-    return en_model,params
-    
-def evaluate_model(y_true, y_pred):
-    r,p = pearsonr(y_true, y_pred)
+	reg = ElasticNet(selection='random')
+	param_grid = {'alpha':np.array(range(1,100,1))/100,'l1_ratio':np.array(range(1,100,1))/100}
+	grid_search = GridSearchCV(reg, param_grid, cv=5,scoring='r2')
+	gs=grid_search.fit(X,Y)
 	
-    return r   
-    
+	params = gs.best_params_
+	en_model = ElasticNet(alpha=params['alpha'],l1_ratio=params['l1_ratio'])
+	
+	en_model.fit(X,Y)
+	
+	return en_model,params
+	
+def evaluate_model(y_true, y_pred):
+	r,p = pearsonr(y_true, y_pred)
+	
+	return r
+	
 if __name__ == '__main__':
-    
-	full_data = pd.read_csv('../data/protein_data',header=0,index_col=0,sep=' ')
-	organ_enriched_genes = np.loadtxt('../data/test_organ_enriched_genes',dtype=str)
+
+	parser = argparse.ArgumentParser()
+
+	parser.add_argument('--protein_data',type=str,help='Path of protein data')
+	parser.add_argument('--organ_enriched_genes',type=str,help='Path of organ enriched genes')
+	parser.add_argument('--sex',type=str,help='Path of sex information')
+	parser.add_argument('--age',type=str,help='Path of age information')
+		
+	args = parser.parse_args()
+		
+	full_data = pd.read_csv(args.protein_data,header=0,index_col=0,sep='\t')
+	organ_enriched_genes = np.loadtxt(args.organ_enriched_genes,dtype=str)
 	organ_data = full_data[organ_enriched_genes]
 
-	sex = pd.read_csv('sex',header=0,sep='\t',index_col=0)
+	sex = pd.read_csv(args.sex,header=0,sep='\t',index_col=0)
 	organ_data = organ_data.join(sex)
 
-	age = pd.read_csv('ages',header=0,sep='\t',index_col=0)
+	age = pd.read_csv(args.age,header=0,sep='\t',index_col=0)
 	organ_data = organ_data.join(age)
 
 	y = organ_data['age']
-	X = organ_data.drop('age',axis=1)
+	X = organ_data.drop(’age‘,axis=1)
 		
 	n_nested = 5
 	kf = KFold(n_splits=5, shuffle=True, random_state=42)
@@ -81,7 +88,7 @@ if __name__ == '__main__':
 		en_model,en_params = ENTrain(X_train,y_train)
 			
 		#predict organ age of training sets
-		y_pred_train_xgb =  xgb_model.predict(X_train)
+		y_pred_train_xgb =	xgb_model.predict(X_train)
 		y_pred_train_rf =  rf_model.predict(X_train)
 		y_pred_train_en =  en_model.predict(X_train)
 			
@@ -122,14 +129,14 @@ if __name__ == '__main__':
 		'XGB_pred': y_pred_train_xgb,
 		'RF_pred': y_pred_train_rf,
 		'EN_pred': y_pred_train_en
-		}, index=X_train.index)  # Using the same index as X_train to maintain consistency
+		}, index=X_train.index)	 # Using the same index as X_train to maintain consistency
 
 		# Creating DataFrame for test results
 		test_results = pd.DataFrame({
 		'XGB_pred': y_pred_test_xgb,
 		'RF_pred': y_pred_test_rf,
 		'EN_pred': y_pred_test_en
-		}, index=X_test.index)  # Using the same index as X_test to maintain consistency
+		}, index=X_test.index)	# Using the same index as X_test to maintain consistency
 
 		# Add a new column to indicate whether the data is from the training set or the test set
 		train_results['Dataset'] = 'Training'
