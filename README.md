@@ -20,3 +20,19 @@ protein_data: Simulated proteomics data containing 1,000 samples and 100 protein
 ages: Age of the samples<br>
 sex: Sex of the samples<br>
 test_organ_enriched_genes: Simulated organ-specific proteins (n=10)<br>
+
+## How to Install and Run the Project
+
+### Installation
+Make sure you have Python 3 installed. You can install the required dependencies using:
+```bash
+pip install -r requirements.txt
+
+### Runing the model
+To run the Organ Aging model, execute the following command:
+```bash
+python3 OrganAgingModelNestedCV.py \
+  --protein_data PATH_OF_PROTEIN_DATA \
+  --organ_enriched_genes ORGAN_ENRICHED_GENE \
+  --sex SEX \
+  --age AGE
