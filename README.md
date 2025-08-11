@@ -27,6 +27,7 @@ test_organ_enriched_genes: Simulated organ-specific proteins (n=10)<br>
 Make sure you have Python 3 installed. You can install the required dependencies using:
 ```bash
 pip install -r requirements.txt
+```
 
 ### Runing the model
 To run the Organ Aging model, execute the following command:
@@ -36,3 +37,5 @@ python3 OrganAgingModelNestedCV.py \
   --organ_enriched_genes ORGAN_ENRICHED_GENE \
   --sex SEX \
   --age AGE
+```
+For file format examples, please refer to the sample data in the data/ directory.
