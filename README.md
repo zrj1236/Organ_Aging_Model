@@ -4,7 +4,7 @@ This repository contains the code for training and evaluating models that predic
 ## Overview
 The goal of this project is to predict organ-specific aging from proteomic data collected from healthy individuals. The models utilize organ-enriched proteins and include sex as a covariate. The methodology employs nested cross-validation for unbiased model performance assessment and hyperparameter optimization.
 
-## Requirements
+## Requirements(Requires Python 3.13.5 or higher)
 xgboost==3.0.3<br>
 scikit-learn==1.7.1<br>
 numpy==2.3.2<br>
