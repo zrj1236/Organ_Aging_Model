@@ -28,6 +28,10 @@ Make sure you have Python 3 installed. You can install the required dependencies
 ```bash
 pip install -r requirements.txt
 ```
+Install our project
+```bash
+git clone https://github.com/zrj1236/Organ_Aging_Model.git
+```
 
 ### Running the model
 To run the Organ Aging model, execute the following command:
