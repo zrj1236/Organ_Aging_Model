@@ -8,8 +8,7 @@ import pandas as pd
 from sklearn.model_selection import KFold
 import multiprocessing
 import os
-os.environ["OMP_NUM_THREADS"] = "64"
-os.environ["MKL_NUM_THREADS"] = "64"
+import argparse
 
 def XGboostTrain(X,Y):
     reg = xgb.XGBRegressor(n_jobs=64)
