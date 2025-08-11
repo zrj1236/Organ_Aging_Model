@@ -43,3 +43,11 @@ python3 OrganAgingModelNestedCV.py \
   --age AGE
 ```
 For file format examples, please refer to the sample data in the data/ directory.
+To run the example data, navigate to the `script` directory and execute the following command:
+```bash
+python3 OrganAgingModelNestedCV.py \
+  --protein_data ../data/protein_data \
+  --organ_enriched_genes ../data/test_organ_enriched_genes \
+  --sex ../data/sex \
+  --age ../data/ages
+```
