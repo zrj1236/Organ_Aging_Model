@@ -14,12 +14,12 @@ argparse==1.1
 
 ## Script and Data
 **Script**：<br>
-OrganAgingModelNestedCV.py：Developing model using nested cross-validation<br>
+OrganAgingModelNestedCV.py：Developing model using nested cross-validation.<br>
 **Data**：<br>
-protein_data: Simulated proteomics data containing 1,000 samples and 100 proteins<br>
-ages: Age of the samples<br>
-sex: Sex of the samples<br>
-test_organ_enriched_genes: Simulated organ-specific proteins (n=10)<br>
+protein_data: Simulated proteomics data containing 1,000 samples and 100 proteins.<br>
+ages: Age of the samples.<br>
+sex: Sex of the samples.<br>
+test_organ_enriched_genes: Simulated organ-specific proteins (n=10).<br>
 
 ## How to Install and Run the Project
 
@@ -28,7 +28,7 @@ Make sure you have Python 3 installed. You can install the required dependencies
 ```bash
 pip install -r requirements.txt
 ```
-Install our project
+Install our project:
 ```bash
 git clone https://github.com/zrj1236/Organ_Aging_Model.git
 ```
