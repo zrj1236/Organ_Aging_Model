@@ -74,7 +74,7 @@ if __name__ == '__main__':
 	organ_data = organ_data.join(age)
 
 	y = organ_data['age']
-	X = organ_data.drop(’age‘,axis=1)
+	X = organ_data.drop('age',axis=1)
 		
 	n_nested = 5
 	kf = KFold(n_splits=5, shuffle=True, random_state=42)
