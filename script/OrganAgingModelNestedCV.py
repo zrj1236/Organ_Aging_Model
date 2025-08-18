@@ -2,7 +2,7 @@ import xgboost as xgb
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import ElasticNet
 import numpy as np
-from scipy.stats import pearsonr
+from sklearn.metrics import r2_score
 from sklearn.model_selection import GridSearchCV
 import pandas as pd
 from sklearn.model_selection import KFold
@@ -48,9 +48,9 @@ def ENTrain(X,Y):
 	return en_model,params
 	
 def evaluate_model(y_true, y_pred):
-	r,p = pearsonr(y_true, y_pred)
+	r2 = r2_score(y_true, y_pred)
 	
-	return r
+	return r2
 	
 if __name__ == '__main__':
 
@@ -111,18 +111,18 @@ if __name__ == '__main__':
 
 		# Print out the evaluation results for all models
 		print("XGBoost Model Evaluation:")
-		print(f"Training R for fold {k} outer fold: {r_train_xgb:.4f}")
-		print(f"Test R for fold {k} outer fold: {r_test_xgb:.4f}")
+		print(f"Training R2 for fold {k} outer fold: {r_train_xgb:.4f}")
+		print(f"Test R2 for fold {k} outer fold: {r_test_xgb:.4f}")
 		print()
 
 		print("Random Forest Model Evaluation:")
-		print(f"Training R for fold {k} outer fold: {r_train_rf:.4f}")
-		print(f"Test R for fold {k} outer fold: {r_test_rf:.4f}")
+		print(f"Training R2 for fold {k} outer fold: {r_train_rf:.4f}")
+		print(f"Test R2 for fold {k} outer fold: {r_test_rf:.4f}")
 		print()
 
 		print("Elastic Net Model Evaluation:")
-		print(f"Training R for fold {k} outer fold: {r_train_en:.4f}")
-		print(f"Test R for fold {k} outer fold: {r_test_en:.4f}")
+		print(f"Training R2 for fold {k} outer fold: {r_train_en:.4f}")
+		print(f"Test R2 for fold {k} outer fold: {r_test_en:.4f}")
 
 		# Creating DataFrame for training results
 		train_results = pd.DataFrame({
