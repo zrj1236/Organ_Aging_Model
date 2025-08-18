@@ -8,7 +8,6 @@ The goal of this project is to predict organ-specific aging from proteomic data 
 xgboost==3.0.3<br>
 scikit-learn==1.7.1<br>
 numpy==2.3.2<br>
-scipy==1.16.1<br>
 pandas==2.3.1<br>
 argparse==1.1
 
